@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Burgemeester Deepfake Crisis - Breakout Scenario</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: #333;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .alert-badge {
+            display: inline-block;
+            background: #ffc107;
+            color: #000;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-top: 1rem;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.05);
+                opacity: 0.9;
+            }
+        }
+
+        .content {
+            padding: 2rem;
+        }
+
+        .section {
+            margin-bottom: 2rem;
+        }
+
+        .section h2 {
+            color: #dc3545;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid #dc3545;
+        }
+
+        .section h3 {
+            color: #495057;
+            font-size: 1.3rem;
+            margin: 1.5rem 0 0.8rem;
+        }
+
+        .crisis-box {
+            background: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 5px;
+        }
+
+        .crisis-box strong {
+            color: #856404;
+            font-size: 1.1rem;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+            margin: 2rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: #dc3545;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 1.5rem;
+            padding-left: 2rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2.6rem;
+            top: 0;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #dc3545;
+            border: 3px solid white;
+        }
+
+        .timeline-time {
+            font-weight: 700;
+            color: #dc3545;
+            font-size: 1rem;
+        }
+
+        .evidence-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .evidence-card {
+            background: #f8f9fa;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .evidence-card:hover {
+            border-color: #dc3545;
+            box-shadow: 0 4px 12px rgba(220, 53, 69, 0.2);
+        }
+
+        .evidence-card h4 {
+            color: #dc3545;
+            margin-bottom: 0.5rem;
+        }
+
+        .task-box {
+            background: #e7f3ff;
+            border: 2px solid #0066cc;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .task-box h3 {
+            color: #0066cc;
+            margin-top: 0;
+        }
+
+        .task-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .task-list li {
+            padding: 0.8rem;
+            margin: 0.5rem 0;
+            background: white;
+            border-radius: 5px;
+            border-left: 4px solid #0066cc;
+            position: relative;
+            padding-left: 2.5rem;
+        }
+
+        .task-list li::before {
+            content: attr(data-number);
+            position: absolute;
+            left: 0.8rem;
+            top: 0.8rem;
+            width: 25px;
+            height: 25px;
+            background: #0066cc;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .questions-box {
+            background: #f8d7da;
+            border: 2px solid #dc3545;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .questions-box h4 {
+            color: #dc3545;
+            margin-bottom: 1rem;
+        }
+
+        .questions-box ol {
+            margin-left: 1.5rem;
+        }
+
+        .questions-box li {
+            margin-bottom: 0.8rem;
+            line-height: 1.6;
+        }
+
+        .info-box {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 5px;
+        }
+
+        .info-box h4 {
+            color: #155724;
+            margin-bottom: 0.5rem;
+        }
+
+        .timer-box {
+            background: #17a2b8;
+            color: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            margin: 2rem 0;
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .resource-item {
+            background: white;
+            border: 2px solid #e0e0e0;
+            padding: 1rem;
+            border-radius: 5px;
+        }
+
+        .resource-item strong {
+            color: #0066cc;
+            display: block;
+            margin-bottom: 0.3rem;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: #0066cc;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #0052a3;
+            transform: translateY(-2px);
+        }
+
+        .btn-print {
+            background: #28a745;
+            color: white;
+        }
+
+        .btn-print:hover {
+            background: #218838;
+            transform: translateY(-2px);
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            .action-buttons {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .evidence-grid, .resources-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚨 CRISIS SCENARIO</h1>
+            <p style="font-size: 1.2rem;">Deepfake Video van Burgemeester</p>
+            <div class="alert-badge">⚠️ URGENT - SOCIAL MEDIA CRISIS</div>
+        </div>
+
+        <div class="content">
+            <!-- Crisis Briefing -->
+            <div class="section">
+                <h2>📋 Crisis Briefing</h2>
+                
+                <div class="crisis-box">
+                    <strong>SITUATIE:</strong>
+                    <p style="margin-top: 0.5rem;">Om 08:30 vanochtend verscheen een video op Twitter/X waarin de burgemeester van Amsterdam schijnbaar racistische uitspraken doet tijdens een besloten bijeenkomst. De video gaat viraal - al 500.000+ views in 2 uur. Mainstream media pikt het op. De burgemeester ontkent, maar het publiek is in rep en roer.</p>
+                </div>
+
+                <h3>⏰ Timeline van Gebeurtenissen</h3>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-time">08:30 uur</div>
+                        <p>Video verschijnt op anoniem Twitter account @TruthRevealed2024</p>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-time">09:00 uur</div>
+                        <p>Video bereikt 100.000 views. Eerste nieuwssites berichten erover</p>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-time">09:30 uur</div>
+                        <p>Burgemeester tweet ontkenning: "Dit is een deepfake. Ik heb dit nooit gezegd."</p>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-time">10:00 uur</div>
+                        <p>Tegenstanders eisen ontslag. Protestgroepen verzamelen bij gemeentehuis</p>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-time">10:15 uur</div>
+                        <p><strong>JIJ WORDT INGESCHAKELD</strong> - Crisis team wordt geformeerd</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Evidence Section -->
+            <div class="section">
+                <h2>🔍 Beschikbare Informatie</h2>
+
+                <div class="evidence-grid">
+                    <div class="evidence-card">
+                        <h4>📹 Video Details</h4>
+                        <ul style="font-size: 0.9rem; margin-left: 1.2rem;">
+                            <li>Duur: 45 seconden</li>
+                            <li>Kwaliteit: 1080p</li>
+                            <li>Setting: Kantoor met stadswapen</li>
+                            <li>Belichting: Professioneel</li>
+                            <li>Audio: Helder, geen ruis</li>
+                        </ul>
+                    </div>
+
+                    <div class="evidence-card">
+                        <h4>👤 Account Info</h4>
+                        <ul style="font-size: 0.9rem; margin-left: 1.2rem;">
+                            <li>@TruthRevealed2024</li>
+                            <li>Aangemaakt: 3 dagen geleden</li>
+                            <li>Followers: 47</li>
+                            <li>Posts: Alleen deze video</li>
+                            <li>Bio: "Revealing the truth"</li>
+                        </ul>
+                    </div>
+
+                    <div class="evidence-card">
+                        <h4>🗓️ Timing</h4>
+                        <ul style="font-size: 0.9rem; margin-left: 1.2rem;">
+                            <li>2 weken voor verkiezingen</li>
+                            <li>Gepost om 08:30 (spits)</li>
+                            <li>Vrijdag (weekend news cycle)</li>
+                            <li>Na controversieel beleid</li>
+                        </ul>
+                    </div>
+
+                    <div class="evidence-card">
+                        <h4>🌐 Verspreiding</h4>
+                        <ul style="font-size: 0.9rem; margin-left: 1.2rem;">
+                            <li>Gedeeld door 2000+ accounts</li>
+                            <li>Veel bot-achtige profielen</li>
+                            <li>Gecoördineerde campagne?</li>
+                            <li>Ook op Telegram/Reddit</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <h4>✓ Wat we weten:</h4>
+                    <ul style="margin-left: 1.2rem; margin-top: 0.5rem;">
+                        <li>Burgemeester had gisteren de hele dag publieke agenda (gedocumenteerd)</li>
+                        <li>Kantoor op video is accurate replica van echt kantoor</li>
+                        <li>Stem klinkt identiek aan burgemeester</li>
+                        <li>Gezichtsuitdrukkingen lijken natuurlijk</li>
+                        <li>Video heeft geen duidelijke watermerken of metadata</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Tasks Section -->
+            <div class="section">
+                <h2>🎯 Jullie Opdracht</h2>
+
+                <div class="timer-box">
+                    ⏱️ Tijd beschikbaar: 20 minuten
+                </div>
+
+                <div class="task-box">
+                    <h3>Fase 1: Analyse (10 minuten)</h3>
+                    <ul class="task-list">
+                        <li data-number="1">
+                            <strong>Deepfake Verificatie</strong><br>
+                            Gebruik AI en jullie kennis: hoe check je of dit een deepfake is? Maak een checklist van 10 verificatiestappen.
+                        </li>
+                        <li data-number="2">
+                            <strong>Source Tracing</strong><br>
+                            Het Twitter account is nieuw. Welke OSINT technieken gebruik je om de maker te traceren?
+                        </li>
+                        <li data-number="3">
+                            <strong>Verspreiding Patroon</strong><br>
+                            De video gaat snel viraal. Gebruik AI om een analyse te maken: Is dit organisch of gecoördineerd?
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="task-box">
+                    <h3>Fase 2: Crisis Response (10 minuten)</h3>
+                    <ul class="task-list">
+                        <li data-number="4">
+                            <strong>Communicatie Strategie</strong><br>
+                            Schrijf een persbericht (150 woorden) voor de burgemeester. Hoe communiceer je dat het een deepfake is zonder defensief te klinken?
+                        </li>
+                        <li data-number="5">
+                            <strong>Damage Control</strong><br>
+                            Social media platforms weigeren video te verwijderen (vrijheid van meningsuiting). Wat is jullie actieplan?
+                        </li>
+                        <li data-number="6">
+                            <strong>Preventie</strong><br>
+                            Hoe voorkom je dit in de toekomst? Geef 5 concrete aanbevelingen voor het college.
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Discussion Questions -->
+            <div class="section">
+                <h2>💬 Discussievragen</h2>
+
+                <div class="questions-box">
+                    <h4>Bespreek in je groep:</h4>
+                    <ol>
+                        <li><strong>Ethisch dilemma:</strong> Als jullie weten dat het een deepfake is maar dit 100% niet kunnen bewijzen - wat doe je?</li>
+                        <li><strong>Juridisch:</strong> Wie is aansprakelijk? De maker, het platform, of niemand?</li>
+                        <li><strong>Privacy:</strong> Mag je de burgemeester's echte video's gebruiken om bewijs te leveren dat dit anders is?</li>
+                        <li><strong>Timing:</strong> Waarom juist 2 weken voor verkiezingen? Wat zegt dit over de intentie?</li>
+                        <li><strong>Lange termijn:</strong> Als deepfakes zo goed worden dat ze niet meer te onderscheiden zijn - wat betekent dat voor jullie werk?</li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- Resources -->
+            <div class="section">
+                <h2>🛠️ Beschikbare Resources</h2>
+
+                <div class="resources-grid">
+                    <div class="resource-item">
+                        <strong>AI Tools</strong>
+                        <p style="font-size: 0.9rem;">ChatGPT, Claude voor analyse en strategie</p>
+                    </div>
+
+                    <div class="resource-item">
+                        <strong>OSINT Tools</strong>
+                        <p style="font-size: 0.9rem;">Social media analyse, account tracking</p>
+                    </div>
+
+                    <div class="resource-item">
+                        <strong>Team Expertise</strong>
+                        <p style="font-size: 0.9rem;">Jullie eigen intelligence training</p>
+                    </div>
+
+                    <div class="resource-item">
+                        <strong>Deepfake Checklist</strong>
+                        <p style="font-size: 0.9rem;">Uit de training van vandaag</p>
+                    </div>
+                </div>
+
+                <h3>💡 Prompting Hints</h3>
+                <div style="background: #f8f9fa; padding: 1rem; border-radius: 5px; font-family: 'Courier New', monospace; font-size: 0.9rem; margin-top: 1rem;">
+"Je bent een crisis communicatie expert. We hebben een deepfake crisis:
+[beschrijf situatie]
+
+Maak:
+1. Persbericht (150 woorden)
+2. Social media strategie (5 punten)
+3. Do's & Don'ts voor interviews
+
+Toon: Kalm, feitelijk, gezaghebbend."
+                </div>
+            </div>
+
+            <!-- Deliverables -->
+            <div class="section">
+                <h2>📊 Op te leveren</h2>
+
+                <div class="info-box">
+                    <h4>Aan het einde van de 20 minuten presenteert jullie groep (5 min):</h4>
+                    <ol style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                        <li><strong>Deepfake Analyse:</strong> Is het een deepfake? Waarop baseer je dat?</li>
+                        <li><strong>Crisis Response:</strong> Je persbericht en actieplan</li>
+                        <li><strong>Lange Termijn:</strong> 5 preventie aanbevelingen</li>
+                        <li><strong>Lessons Learned:</strong> Wat leer je hiervan over AI en desinformatie?</li>
+                    </ol>
+                </div>
+
+                <div style="background: #fff3cd; padding: 1rem; border-radius: 5px; margin-top: 1rem;">
+                    <strong>💡 Tips voor presentatie:</strong>
+                    <ul style="margin-left: 1.2rem; margin-top: 0.5rem; font-size: 0.9rem;">
+                        <li>Wees concreet - geen vage termen</li>
+                        <li>Gebruik AI om je presentatie te structureren</li>
+                        <li>Laat zien HOE je AI hebt gebruikt in je analyse</li>
+                        <li>Wees realistisch - geen sci-fi oplossingen</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Debrief Points -->
+            <div class="section">
+                <h2>🎓 Leerpunten (voor trainer)</h2>
+
+                <div style="background: #e7f3ff; padding: 1.5rem; border-radius: 8px; border: 2px solid #0066cc;">
+                    <h4 style="color: #0066cc; margin-bottom: 1rem;">Na de presentaties te bespreken:</h4>
+                    <ul style="margin-left: 1.2rem; line-height: 1.8;">
+                        <li><strong>Snelheid vs Nauwkeurigheid:</strong> Crisis vraagt snelle actie, maar verificatie kost tijd</li>
+                        <li><strong>AI als Wapen:</strong> Zowel probleem (deepfake) als oplossing (detectie)</li>
+                        <li><strong>Social Media Dynamiek:</strong> Virality is moeilijk te stoppen</li>
+                        <li><strong>Preventie > Reactie:</strong> Voorkomen is beter dan genezen</li>
+                        <li><strong>Menselijke Factor:</strong> Mensen willen schokkend nieuws geloven</li>
+                        <li><strong>Juridisch Gat:</strong> Weinig wetgeving tegen deepfakes</li>
+                        <li><strong>Verify Before Amplify:</strong> Zelfs als je denkt dat je helpt</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <button class="btn btn-print" onclick="window.print()">🖨️ Print Scenario</button>
+                <button class="btn btn-primary" onclick="alert('Timer gestart! 20 minuten vanaf nu.')">⏱️ Start Timer</button>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // Simple timer functionality
+        let timerRunning = false;
+        let timeLeft = 20 * 60; // 20 minutes in seconds
+
+        function startTimer() {
+            if (timerRunning) return;
+            
+            timerRunning = true;
+            const timerDisplay = document.querySelector('.timer-box');
+            
+            const interval = setInterval(() => {
+                timeLeft--;
+                
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
+                
+                timerDisplay.innerHTML = `⏱️ Tijd over: ${minutes}:${seconds.toString().padStart(2, '0')}`;
+                
+                if (timeLeft <= 0) {
+                    clearInterval(interval);
+                    timerDisplay.innerHTML = '⏰ TIJD IS OP! Bereid presentatie voor.';
+                    timerDisplay.style.background = '#dc3545';
+                    alert('Tijd is op! Jullie hebben nog 5 minuten voor de presentatie.');
+                }
+                
+                // Warning at 5 minutes
+                if (timeLeft === 300) {
+                    alert('⚠️ Nog 5 minuten!');
+                }
+                
+                // Warning at 1 minute
+                if (timeLeft === 60) {
+                    alert('⚠️ Nog 1 minuut!');
+                }
+            }, 1000);
+        }
+
+        // Alternative: Use browser prompt
+        document.querySelector('.btn-primary').addEventListener('click', function() {
+            if (confirm('Start 20 minuten timer voor deze oefening?')) {
+                startTimer();
+            }
+        });
+    </script>
+</body>
+</html>
